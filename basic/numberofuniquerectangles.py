@@ -5,12 +5,13 @@
 http://practice.geeksforgeeks.org/problems/number-of-unique-rectangles/0
 """
 
+import math
+
 def calculate_rectangles(n_cubes):
-    result = 0
-    for i in range(1, n_cubes + 1):
-        for j in range(i, n_cubes + 1):
-            if i*j <= n_cubes:
-                result += 1
+    result = n_cubes
+    for i in range(2, int(math.sqrt(n_cubes) + 1)):
+        c = max(0, math.floor(n_cubes/i) - i + 1)
+        result += c
     return result
 
 
