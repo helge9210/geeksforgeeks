@@ -11,10 +11,10 @@ import heapq
 def find_partition(array):
     rev_array = [-1*el for el in array]
     heapq.heapify(rev_array)
-    queue = deque([rev_array[:]])
+    queue = list([rev_array[:]])
     min_diff = sum(array)
     while len(queue) > 0:
-        r = queue.popleft()
+        r = queue.pop()
         if len(r) == 1:
             continue
         if min_diff == 1:
