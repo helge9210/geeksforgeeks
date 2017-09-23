@@ -34,9 +34,8 @@ def get_next_steps(array, row, col):
     steps = []
     rows = len(array)
     cols = len(array[0])
-    directions = [(-1, 0),  # up
-                  (1, 0),  # down
-                  (0, -1),  # left
+    directions = [(1, 0),  # down
+
                   (0, 1)]  # right
     for direction in directions:
         if row + direction[0] >= 0 and \
