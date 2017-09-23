@@ -50,26 +50,28 @@ def get_next_steps(array, row, col):
 def find_min_path(array, rows, cols):
     maze = convert_array(array, rows, cols)
     print_maze(maze)
-    costs = create_maze(rows, cols)
-    costs[-1][-1] = 1 - maze[-1][-1]
-    queue = deque()
-    queue.append((rows-1, cols-1))
-    while queue:
-        current_cell = queue.popleft()
-        print_maze(costs)
-        nearby_cells = get_next_steps(costs,
-                                      current_cell[0],
-                                      current_cell[1])
-        print(nearby_cells)
-        surround_costs = []
-        for nearby_cell in nearby_cells:
-            if costs[nearby_cell[0]][nearby_cell[1]] is not None:
-                surround_costs.append(
-                    costs[nearby_cell[0]][nearby_cell[1]]
-                )
-            else:
-                queue.append(nearby_cell)
-        print(surround_costs)
+    stack = [((0, 0), [])]
+    pathes = []
+    while stack:
+        current = stack.pop()
+        if current[0] == (rows - 1, cols - 1):
+            v = current[1][:]
+            v.append(current[0])
+            p = []
+            for el in v:
+                p.append(maze[el[0]][el[1]])
+            pathes.append(p)
+            continue
+        if current[0] not in current[1]:
+            v = current[1][:]
+            v.append(current[0])
+            next_steps = get_next_steps(maze, current[0][0],
+                                        current[0][1])
+            for n in next_steps:
+                stack.append((n, v[:]))
+
+    pprint(pathes) # calculate minimal points per path, chose min
+
 
 
 t = int(input())
